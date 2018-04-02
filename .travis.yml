@@ -12,7 +12,7 @@ script:
       cd ../../
       git clone https://github.com/Josantonius/WP_Register.git
       dir
-      cp  PHP-LoadTime/src/* $TRAVIS_REPO_SLUG/
+      cp WP_Register/src/* $TRAVIS_REPO_SLUG/
       cd $TRAVIS_REPO_SLUG
       git log -1
       git checkout -f master
