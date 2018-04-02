@@ -1,0 +1,26 @@
+# run on container environment
+sudo: false
+
+language: php
+
+php: 7.1
+    
+script:
+- phpenv config-rm xdebug.ini || return 0
+- |
+    if [[ $TRAVIS_BRANCH == "master" ]]; then
+      cd ../../
+      git clone https://github.com/Josantonius/WP_Register.git
+      dir
+      cp  PHP-LoadTime/src/* $TRAVIS_REPO_SLUG/
+      cd $TRAVIS_REPO_SLUG
+      git log -1
+      git checkout -f master
+      git config --global user.email "travis@travis-ci.org"
+      git config --global user.name "Travis CI"
+      git add -A
+      git commit -m "Travis build: $TRAVIS_BUILD_NUMBER [skip ci]"
+      git remote set-url origin https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git > /dev/null 2>&1
+      git push origin master -f
+    fi
+    
